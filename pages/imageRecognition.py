@@ -48,27 +48,24 @@ def predict(image, model):
     return predicted.item()
 
 # StreamlitアプリのUI構成
-st.header("画像認識アプリ")
+st.subheader("画像認識アプリ")
 
-# 横並びにする
-col1, col2 = st.columns(2)
+# アプリの説明
+st.write("飛行機・自動車・鳥・猫・鹿・犬・カエル・馬・船・トラックの画像を認識するアプリです。")
 
 # ユーザーからの画像アップロード
-with col1:
-    uploaded_file = st.file_uploader("画像をアップロードしてください", type=["jpg", "png", "jpeg"])
+uploaded_file = st.file_uploader("画像をアップロードしてください", type=["jpg", "png", "jpeg"])
+if uploaded_file is not None:
+    # 画像を表示
+    image = Image.open(uploaded_file)
+    st.image(image, caption="アップロードされた画像", use_column_width=True)
 
-with col2:
-    if uploaded_file is not None:
-        # 画像を表示
-        image = Image.open(uploaded_file)
-        st.image(image, caption="アップロードされた画像", use_column_width=True)
+    # モデルをロード
+    model = load_model()
 
-        # モデルをロード
-        model = load_model()
+    # 画像の前処理と予測
+    tensor_image = transform_image(image)  # 画像をテンソルに変換
+    predicted_class = predict(tensor_image, model)  # クラスを予測
 
-        # 画像の前処理と予測
-        tensor_image = transform_image(image)  # 画像をテンソルに変換
-        predicted_class = predict(tensor_image, model)  # クラスを予測
-
-        # 予測結果を表示
-        st.write(f"予測結果: {CIFAR10_CLASSES[predicted_class]}")
+    # 予測結果を表示
+    st.write(f"予測結果: {CIFAR10_CLASSES[predicted_class]}")

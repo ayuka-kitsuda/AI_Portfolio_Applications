@@ -6,7 +6,7 @@ import torchvision.models as models
 from torchvision.models import ViT_B_16_Weights
 from PIL import Image
 
-st.title("ポートフォリオ")
+st.header("ポートフォリオ", divider="gray")
 
 pages = st.navigation([st.Page("pages/imageRecognition.py", title="画像認識アプリ"),
                        st.Page("pages/chatbot.py", title="チャットボットアプリ")])

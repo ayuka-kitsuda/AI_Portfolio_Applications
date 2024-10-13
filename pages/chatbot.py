@@ -8,7 +8,7 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Streamlitアプリのヘッダー
-st.header("チャットボット")
+st.subheader("チャットボット")
 st.write("ITに関する質問のみを受け付けます。それ以外にはお答えできません。")
 
 # 初期メッセージを保持するためのセッションステートを設定
