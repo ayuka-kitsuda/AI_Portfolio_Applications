@@ -4,18 +4,25 @@ import torchvision.transforms as transforms
 from PIL import Image
 from torch import nn
 import torchvision.models as models
+import os
+from dotenv import load_dotenv
 from torchvision.models import ViT_B_16_Weights
 
 # モデルのロード関数
 @st.cache_resource  # キャッシュすることで効率的にモデルを再利用
 def load_model():
+
+    # 環境変数からモデルパスを取得
+    load_dotenv()
+    model_path = os.getenv("TRAINED_MODEL_PATH")
+
     # ViTモデルの構築
     model = models.vit_b_16(weights=ViT_B_16_Weights.IMAGENET1K_V1)
     model.heads[0] = nn.Linear(768, 10)  # CIFAR-10用に出力層を調整
 
     # ローカルの`trained_model.pth`からstate_dictをロード
     try:
-        state_dict = torch.load("trained_model.pth", map_location=torch.device('cpu'))
+        state_dict = torch.load(model_path, map_location=torch.device('cpu'))
         model.load_state_dict(state_dict)  # モデルに重みを適用
         model.eval()  # 推論モードに切り替え
     except Exception as e:
