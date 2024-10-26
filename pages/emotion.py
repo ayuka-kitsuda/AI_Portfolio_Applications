@@ -13,7 +13,7 @@ def load_model():
 with st.spinner("感情分析モデルを読み込んでいます。少々お待ちください。"):
     tokenizer, model = load_model()
 
-# Streamlit UI
+# StreamlitアプリのUI構成
 st.title("感情分析アプリ")
 st.markdown('''
             文章から感情を分析できるアプリです。
@@ -21,7 +21,7 @@ st.markdown('''
             ''')
 
 # 文章を入力
-text = st.text_input("感情を分析したい文章を入力してください:：")
+text = st.text_input("感情を分析したい文章を入力してください:")
 
 if st.button("分析"):
     if text.strip() == "":

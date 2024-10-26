@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# Streamlitアプリのヘッダー
+# StreamlitアプリのUI構成
 st.subheader("チャットボット")
 st.write("ITに関する質問のみを受け付けます。それ以外にはお答えできません。")
 
@@ -19,9 +19,6 @@ if "messages" not in st.session_state:
 
 # ユーザーからの入力を取得
 user_input = st.chat_input("ITに関する質問を入力してください。")
-
-
-
 if user_input:
     # メッセージリストにユーザーの入力を追加
     st.session_state["messages"].append({"role": "user", "content": user_input})
@@ -43,7 +40,7 @@ if user_input:
     # OpenAIのAPIを使って応答を生成
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-4",  # または "gpt-3.5-turbo"
+            model="gpt-4o-mini",
             messages=st.session_state["messages"],
         )
 
@@ -54,9 +51,6 @@ if user_input:
         with st.chat_message("assistant"):
             st.write("アシスタント")
             st.write(bot_reply)
-
-        # # Botの応答を表示
-        # st.write(f"Bot: {bot_reply}")
 
     except Exception as e:
         st.error(f"エラーが発生しました: {e}")
