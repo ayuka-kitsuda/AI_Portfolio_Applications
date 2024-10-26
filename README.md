@@ -1,7 +1,8 @@
 # AIアプリケーション
 いくつかのAIアプリケーションをまとめたサイトです。
 
-## アプリケーション
+## アプリケーションの概要
+下記3つのアプリケーションを実装しています。
 - Transformerを使用した画像認識
 - 生成AIを使用したチャットボット
 - 感情分析アプリ
@@ -20,6 +21,7 @@ OpenAIを使用したITに関することのみ回答するチャットボット
 文章からそれぞれネガティブ・ポジティブ・中立に感情が分けられるアプリです。
 応用方法としては、「映画の感想から感情を分けて集計する機能」「お店に対する評価が一目でわかる機能」が考えられます。
 
+
 ## Dockerの使用方法
 1. 前提条件  
 [Docker](https://docs.docker.com/get-docker/)がインストールされていること。
@@ -28,35 +30,33 @@ OpenAIを使用したITに関することのみ回答するチャットボット
 
 3. Dockerイメージのビルド  
 このプロジェクトのDockerイメージをビルドするには、次のコマンドを実行してください:
+   ```bash
+   docker build -t <your-image-name> .
+   ```
+   - -t \<your-image-name\>: イメージに名前を付けます（例: my-app）。
 
-```bash
-docker build -t <your-image-name> .
-```
-- -t \<your-image-name\>: イメージに名前を付けます（例: my-app）。
-
-4. Dockerコンテナの起動
+4. Dockerコンテナの起動  
 Dockerコンテナを起動するには、以下のコマンドを実行してください:
-
-```bash
-docker run -d -p 8501:8501 <your-image-name>
-```
-5. 環境変数の設定
-"生成AIを使用したチャットボット"を実行するには、OpenAI APIキーが必要です。コンテナ実行時に環境変数としてAPIキーを渡してください。
-
-```bash
-docker run -d -p 8501:8501 -e OPENAI_API_KEY=your_openai_api_key <your-image-name>
-```
-※ 今回はセキュリティのため、APIキーを設定しません。そのため、この環境では"生成AIを使用したチャットボット"は正常に動作しません。デプロイしたアプリケーションでご確認ください。
-
-6. コンテナの停止と削除
+   ```bash
+   docker run -d -p 8501:8501 <your-image-name>
+   ```
    
-コンテナを停止するには、以下のコマンドを実行します:
-```bash
-docker stop <container-id>
-```
-- \<container-id\>は、実行中のコンテナのIDです。docker psコマンドで確認できます。
+5. 環境変数の設定
+"生成AIを使用したチャットボット"を実行するには、OpenAI APIキーが必要です。  
+コンテナ実行時に環境変数としてAPIキーを渡してください。
+   ```bash
+   docker run -d -p 8501:8501 -e OPENAI_API_KEY=your_openai_api_key <your-image-name>
+   ```
+   ※ 今回はセキュリティのため、APIキーを設定しません。そのため、この環境では"生成AIを使用したチャットボット"は正常に動作しません。デプロイしたアプリケーションでご確認ください。
 
-コンテナを削除するには、以下のコマンドを実行します:
-```bash
-docker rm <container-id>
-```
+6. コンテナの停止と削除  
+コンテナを停止するには、以下のコマンドを実行します:
+   ```bash
+   docker stop <container-id>
+   ```
+   - \<container-id\>は、実行中のコンテナのIDです。docker psコマンドで確認できます。
+
+   コンテナを削除するには、以下のコマンドを実行します:
+   ```bash
+   docker rm <container-id>
+   ```
