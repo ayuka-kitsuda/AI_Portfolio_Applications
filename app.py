@@ -8,7 +8,7 @@ from PIL import Image
 
 st.header("ポートフォリオ", divider="gray")
 
-pages = st.navigation([st.Page("pages/imageRecognition.py", title="画像認識アプリ"),
-                       st.Page("pages/chatbot.py", title="チャットボットアプリ"),
-                       st.Page("pages/emotion.py", title="感情分析アプリ")])
+pages = st.navigation([st.Page("app_pages/imageRecognition.py", title="画像認識アプリ"),
+                       st.Page("app_pages/chatbot.py", title="チャットボットアプリ"),
+                       st.Page("app_pages/emotion.py", title="感情分析アプリ")])
 pages.run()
